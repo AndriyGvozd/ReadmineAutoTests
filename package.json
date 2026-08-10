@@ -1,0 +1,24 @@
+{
+  "name": "redmine-playwright-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:public": "playwright test --project=public",
+    "test:auth": "playwright test --project=authenticated",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "report:generate": "allure generate ./allure-results --clean -o ./allure-report",
+    "report:open": "allure open ./allure-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "allure-commandline": "latest",
+    "allure-playwright": "latest",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "otplib": "^13.4.1"
+  }
+}
