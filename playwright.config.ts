@@ -33,6 +33,18 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         storageState: './helpers/storageState.json',
       },
+    },
+    // --- Firefox  ---
+    {
+      name: 'mainPage-firefox',
+      testMatch: /mainPage\.spec\.ts/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    // --- WebKit  ---
+    {
+      name: 'mainPage-webkit',
+      testMatch: /mainPage\.spec\.ts/,
+      use: { ...devices['Desktop Safari'] },
     }
   ],
 });

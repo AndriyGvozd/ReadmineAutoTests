@@ -4,7 +4,7 @@ Automated end-to-end tests for [redmine.org](https://www.redmine.org/), covering
 
 ## 📋 Test Plan
 
-The full test plan (5 critical test cases with Module, Sub-Module, Type, Preconditions, Test Steps, and Expected Results) is available in [`Redmine_TestPlan_5Critical_Auth.xlsx`](./Redmine_TestPlan_5Critical_Auth.xlsx).
+The full test plan (5 critical test cases with Module, Sub-Module, Type, Preconditions, Test Steps, and Expected Results) is available in [`Redmine_TestPlan_5Critical_Auth`](https://docs.google.com/spreadsheets/d/1uTjYeGTNvqtHfeBIbUcg5yCYMVnKitPKaWi7_GsxCmo/edit?gid=1637333109#gid=1637333109).
 
 | ID | Title | Type | Priority |
 |----|-------|------|----------|
@@ -53,7 +53,7 @@ redmine-playwright-tests/
 **Page Object Model:** every element and page action lives in a dedicated class under `tests/pages/`. Test files only describe *what* should happen (`login.login(user, pass)`, `account.signOut()`), never raw selectors — so if the site's markup changes, only one file needs updating.
 
 **Authentication helper:** rather than logging in inside every test, `helpers/global-setup.ts` runs once before the whole suite:
-1. Logs in via the UI using credentials from `env/.env`
+1. Logs in via the UI using credentials from `environment/.env`
 2. Since redmine.org now **requires two-factor authentication for all accounts**, it also generates a valid TOTP code on the fly using `otplib` and the account's stored secret
 3. Saves the resulting authenticated session to `helpers/storageState.json`
 
@@ -79,7 +79,7 @@ npx playwright install
 ### Configure credentials
 Copy the template and fill in your own test account:
 ```bash
-cp env/.env.example env/.env
+cp environment/.env.example environment/.env
 ```
 ```
 REDMINE_TEST_USERNAME=your_test_login
@@ -117,7 +117,7 @@ Every push or pull request to `main` triggers `.github/workflows/playwright.yml`
 
 ### 📊 Reports
 Live Allure report (updated on every pipeline run):
-👉 [Add your GitHub Pages link here]
+👉 https://andriygvozd.github.io/ReadmineAutoTests/3/index.html
 
 ## 📌 Notes
 - The `environment/` folder and `helpers/storageState.json` are excluded from version control — never commit real credentials or session tokens.
