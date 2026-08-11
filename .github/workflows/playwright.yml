@@ -34,24 +34,16 @@ jobs:
         env:
           REDMINE_TEST_USERNAME: ${{ secrets.REDMINE_TEST_USERNAME }}
           REDMINE_TEST_PASSWORD: ${{ secrets.REDMINE_TEST_PASSWORD }}
-          REDMINE_2FA_SECRET: ${{ secrets.REDMINE_2FA_SECRET }}
+          REDMINE_TOTP_SECRET: ${{ secrets.REDMINE_TOTP_SECRET }}
         continue-on-error: true
 
-      - name: Load previous Allure report history
+      - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
-          path: gh-pages-history
-
-      - name: Copy history into allure-results
-        if: always()
-        run: |
-          mkdir -p allure-results/history
-          if [ -d "gh-pages-history/history" ]; then
-            cp -r gh-pages-history/history/* allure-results/history/ || true
-          fi
+          path: gh-pages
 
       - name: Generate Allure report
         if: always()
