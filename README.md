@@ -117,7 +117,7 @@ Every push or pull request to `main` triggers `.github/workflows/playwright.yml`
 
 ### 📊 Reports
 Live Allure report (updated on every pipeline run):
-👉 https://andriygvozd.github.io/ReadmineAutoTests/3/index.html
+📊 **[Open Allure Report](https://andriygvozd.github.io/ReadmineAutoTests/)**
 
 ## 📌 Notes
 - The `environment/` folder and `helpers/storageState.json` are excluded from version control — never commit real credentials or session tokens.
