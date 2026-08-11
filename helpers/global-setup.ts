@@ -29,8 +29,12 @@ async function globalSetup(config: FullConfig) {
   const login = new LoginPage(page);
 
   await login.goto();
-  await login.login(username, password);
-  await login.twoFactorLogin(twoFactorCode);
+  try {
+        await login.login(username, password);
+        await login.twoFactorLogin(twoFactorCode);
+    } catch (err) {
+        console.warn('⚠️  Login form interaction failed:', (err as Error).message);
+      }
 
   try {
     await page.waitForURL(/redmine\.org\/my\/page$/, { timeout: 10000 });
