@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"746112214a4e2a85c08bdbe4b7970adc","name":"mainPage-chromium","statistic":{"failed":0,"broken":0,"skipped":0,"passed":3,"unknown":0,"total":3}},{"uid":"4408b129a8bd321b5a2cef3e22a9481c","name":"authenticated-chromium","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}}]}
