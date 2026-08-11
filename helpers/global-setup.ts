@@ -20,7 +20,7 @@ async function globalSetup(config: FullConfig) {
     secret,
   });
 
-  const browser = await chromium.launch({
+  const browser = await chromium.launch({ // for debugging, you can set headless: false and slowMo: 500
     // headless: false,
     // slowMo: 500
   });
