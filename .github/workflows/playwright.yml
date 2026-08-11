@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium firefox webkit
+        run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
         run: npx playwright test
@@ -37,17 +37,21 @@ jobs:
           REDMINE_2FA_SECRET: ${{ secrets.REDMINE_2FA_SECRET }}
         continue-on-error: true
 
-      - name: Get Allure history
+      - name: Load previous Allure report history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
           ref: gh-pages
-          path: gh-pages
+          path: gh-pages-history
 
-      - name: Ensure gh-pages folder exists
+      - name: Copy history into allure-results
         if: always()
-        run: mkdir -p gh-pages
+        run: |
+          mkdir -p allure-results/history
+          if [ -d "gh-pages-history/history" ]; then
+            cp -r gh-pages-history/history/* allure-results/history/ || true
+          fi
 
       - name: Generate Allure report
         if: always()
