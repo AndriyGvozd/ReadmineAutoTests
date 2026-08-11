@@ -112,7 +112,7 @@ Every push or pull request to `main` triggers `.github/workflows/playwright.yml`
 5. Publishes the report to the `gh-pages` branch
 
 ### Setup requirements
-- `REDMINE_TEST_USERNAME`, `REDMINE_TEST_PASSWORD`, `REDMINE_TOTP_SECRET` added as GitHub Actions secrets (Repo → Settings → Secrets and variables → Actions)
+- `REDMINE_TEST_USERNAME`, `REDMINE_TEST_PASSWORD`, `REDMINE_2FA_SECRET` added as GitHub Actions secrets (Repo → Settings → Secrets and variables → Actions)
 - GitHub Pages enabled: Settings → Pages → Source → Deploy from branch → `gh-pages` / `(root)`
 
 ### 📊 Reports

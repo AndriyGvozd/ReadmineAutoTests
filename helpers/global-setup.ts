@@ -21,8 +21,8 @@ async function globalSetup(config: FullConfig) {
   const twoFactorCode = await generate({ secret });
 
   const browser = await chromium.launch({ 
-    headless: false,
-    slowMo: 500
+    // headless: false, // for debugging, set to false to see the browser
+    // slowMo: 500
    });
   const page = await browser.newPage({ baseURL });
 
