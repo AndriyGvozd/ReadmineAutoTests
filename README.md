@@ -84,7 +84,7 @@ cp environment/.env.example environment/.env
 ```
 REDMINE_TEST_USERNAME=your_test_login
 REDMINE_TEST_PASSWORD=your_test_password
-REDMINE_TOTP_SECRET=your_totp_secret
+REDMINE_2FA_SECRET=your_2fa_secret
 ```
 
 ### Run tests
