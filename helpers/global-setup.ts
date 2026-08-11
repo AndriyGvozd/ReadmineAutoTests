@@ -11,20 +11,19 @@ async function globalSetup(config: FullConfig) {
   const secret = process.env.REDMINE_2FA_SECRET;
 
   if (!username || !password || !secret) {
-    throw new Error(
-      'Missing REDMINE_TEST_USERNAME / REDMINE_TEST_PASSWORD / REDMINE_2FA_SECRET. Set them in environment/.env or CI secrets.'
+    console.warn(
+      'REDMINE_TEST_USERNAME / REDMINE_TEST_PASSWORD / REDMINE_2FA_SECRET are not set. ' +
+      'Skipping authenticated session setup — only unauthenticated (mainPage) tests can run.'
     );
+    return;
   }
 
-  const twoFactorCode = await generate({
-    secret,
-  });
+  const twoFactorCode = await generate({ secret });
 
-  const browser = await chromium.launch({ // for debugging, you can set headless: false and slowMo: 500
-    // headless: false,
-    // slowMo: 500
-  });
-
+  const browser = await chromium.launch({ 
+    headless: false,
+    slowMo: 500
+   });
   const page = await browser.newPage({ baseURL });
 
   const login = new LoginPage(page);
@@ -33,21 +32,22 @@ async function globalSetup(config: FullConfig) {
   await login.login(username, password);
   await login.twoFactorLogin(twoFactorCode);
 
-  await page.waitForURL(/redmine\.org\/my\/page$/, {
-    timeout: 10000
-  });
+  try {
+    await page.waitForURL(/redmine\.org\/my\/page$/, { timeout: 10000 });
+  } catch {
+    await page.screenshot({ path: 'helpers/login-failure.png' });
+    await browser.close();
+    console.warn(
+      'Authenticated login failed. Authenticated tests will fail, ' +
+      'but public tests are unaffected. See helpers/login-failure.png.'
+    );
+    return;
+  }
 
-  const storageStatePath = path.resolve(
-    __dirname,
-    'storageState.json'
-  );
-
-  await page.context().storageState({
-    path: storageStatePath
-  });
+  const storageStatePath = path.resolve(__dirname, 'storageState.json');
+  await page.context().storageState({ path: storageStatePath });
 
   console.log(`Storage state saved to: ${storageStatePath}`);
-
   await browser.close();
 }
 

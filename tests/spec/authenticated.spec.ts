@@ -1,23 +1,22 @@
-import { test, expect } from '@playwright/test';
-import { AccountPage } from '../pages/Account.page';
+import { test, expect } from '../../helpers/fixtures';
 
-test.describe('Redmine.org — authenticated flows', () => {
+// serial: Guarantees the execution order — TC-03 must always run before TC-05, so that the logout action
+// (which invalidates the session on the server) does not affect tests that have not yet been executed.
+test.describe.serial('Redmine.org — authenticated flows', () => {
 
-  test('TC-03: Authenticated session grants access and shows Sign out link', async ({ page }) => {
-    const account = new AccountPage(page);
+  test('TC-03: Authenticated session grants access and shows Sign out link', async ({ page, accountPage }) => {
     await page.goto('/');
 
-    await expect(account.signOutLink).toBeVisible();
-    await expect(account.signInLink).toHaveCount(0);
+    await expect(accountPage.signOutLink).toBeVisible();
+    await expect(accountPage.signInLink).toHaveCount(0);
   });
 
-  test('TC-05: User successfully logs out', async ({ page }) => {
-    const account = new AccountPage(page);
+  test('TC-05: User successfully logs out', async ({ page, accountPage }) => {
     await page.goto('/');
 
-    await account.signOut();
+    await accountPage.signOut();
 
-    await expect(account.signInLink).toBeVisible();
+    await expect(accountPage.signInLink).toBeVisible();
     await page.goto('/my/account');
     await expect(page).toHaveURL(/\/login/);
   });

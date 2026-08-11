@@ -1,15 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../pages/Home.page';
-import { LoginPage } from '../pages/Login.page';
+import { test, expect } from '../../helpers/fixtures';
 
 test.describe('Redmine.org — public / unauthenticated flows', () => {
 
-  test('TC-01: Homepage loads successfully', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.goto();
+  test('TC-01: Homepage loads successfully', async ({ page, homePage }) => {
+    await homePage.goto();
 
     await expect(page).toHaveTitle('Overview - Redmine');
-    await expect(home.mainHeading).toBeVisible();
+    await expect(homePage.mainHeading).toBeVisible();
   });
 
   test('TC-02: Unauthenticated user cannot access "My account"', async ({ page }) => {
@@ -18,13 +15,12 @@ test.describe('Redmine.org — public / unauthenticated flows', () => {
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test('TC-04: Login fails with an invalid password', async ({ page }) => {
-    const login = new LoginPage(page);
-    await login.goto();
-    await login.login(process.env.REDMINE_TEST_USERNAME ?? 'invalid_user', 'wrong-password-123');
+  test('TC-04: Login fails with an invalid password', async ({ page, loginPage }) => {
+    await loginPage.goto();
+    await loginPage.login(process.env.REDMINE_TEST_USERNAME ?? 'invalid_user', 'wrong-password-123');
 
     await expect(page).toHaveURL(/\/login/);
-    await expect(login.errorMessage).toBeVisible();
+    await expect(loginPage.errorMessage).toBeVisible();
   });
 
 });

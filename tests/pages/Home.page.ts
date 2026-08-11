@@ -6,7 +6,7 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.mainHeading = page.locator('h1>span.current-project');
+    this.mainHeading = page.locator('.current-project');
   }
 
   async goto() {

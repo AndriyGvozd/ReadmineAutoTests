@@ -15,8 +15,8 @@ export class LoginPage {
     this.passwordInput = page.locator('#password');
     this.loginButton = page.locator('#login-submit');
     this.errorMessage = page.locator('#flash_error, .flash.error');
-    this.twoFactorInput = page.locator('form#twofa_form>input#twofa_code');
-    this.twoFactorSubmitButton = page.locator('form#twofa_form>input#login-submit');
+    this.twoFactorInput = page.locator('#twofa_code');
+    this.twoFactorSubmitButton = page.locator('#login-submit');
   }
 
   async goto() {
