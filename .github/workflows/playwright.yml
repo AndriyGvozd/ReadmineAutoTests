@@ -34,7 +34,7 @@ jobs:
         env:
           REDMINE_TEST_USERNAME: ${{ secrets.REDMINE_TEST_USERNAME }}
           REDMINE_TEST_PASSWORD: ${{ secrets.REDMINE_TEST_PASSWORD }}
-          REDMINE_TOTP_SECRET: ${{ secrets.REDMINE_TOTP_SECRET }}
+          REDMINE_2FA_SECRET: ${{ secrets.REDMINE_2FA_SECRET }}
         continue-on-error: true
 
       - name: Get Allure history
